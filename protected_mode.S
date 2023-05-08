@@ -1,6 +1,6 @@
 .code16
-/* Opcional limpia la pantalla en caso de ejecutar sobre algunas bios*/
-int $0x10
+/* Opcional limpia la pantalla en caso de ejecutar sobre algunas bios (recordar mover cursor -mov $0, %eax y -mov $1, %ebx)*/
+/*int $0x10
 push %ax
 push %bx
 push %cx
@@ -20,7 +20,7 @@ mov $0, %dl
 pop %dx
 pop %cx
 pop %bx
-pop %ax
+pop %ax*/
 cli
 ljmp $0, $1f   /*Setear el registro CS en 0*/
 1:
@@ -79,10 +79,10 @@ sgdt 0x7000  /*Guardo en el stack la direccion de comienzo de la GDT*/
 
 vga_print:
     mov $message, %ecx
-    mov $0, %eax
+    mov $16, %eax
     mov $0, %edx
     /* Numero de lineas horizontales */
-    mov $1, %ebx
+    mov $17, %ebx
     div %ebx
     mov %edx, %eax
     /*ancho de linea* bytes por caracter en la pantalla -> 160 = 80 * 2*/
